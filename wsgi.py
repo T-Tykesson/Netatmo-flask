@@ -6,16 +6,13 @@ import threading
 import os
 import queue
 import datetime
-import backend_handeler
-from backend_handeler import UserInputData
+import backend_handler
+from backend_handler import UserInputData
 from back_end.api_counter import (InternalServerError,
                                   NetatmoGeneralError, NoActiveTokenError,
                                   NoApiCallsLeftError, InvalidInputError)
-
-from babel.numbers import *  # Included due to hidden imports tkcalendar
-from babel.dates import format_date, parse_date, get_day_names, get_month_names
 import calendar
-import openpyxl
+
 
 
 app = Flask(__name__)
@@ -29,26 +26,31 @@ def home():
 @app.route("/login/", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
-        auth_key = request.form["auth"]
-        start_date = request.form.get("start_date")
-        end_date = request.form.get("end_date")
-        print(auth_key, "\n", start_date, "\n"
+        auth_token = request.form["auth"]
+        start_date = str(request.form.get("start_date"))
+        end_date = str(request.form.get("end_date"))
+        latitude = float(request.form["latitude"])
+        longitude = float(request.form["longitude"])
+        amount = int(request.form["amount"])
+        scale = "30 min"
+        directory = ""
+        print(auth_token, "\n", start_date, "\n"
               , end_date)
         
         input_data = UserInputData(
                 auth_token,
                 latitude,
                 longitude,
-                date_begin,
-                date_end,
+                start_date,
+                end_date,
                 scale,
                 amount,
                 directory
             )
 
-        backend_handeler.run_program(input_data)
+        backend_handler.run_program(input_data)
 
-        return redirect(url_for("user", usr=auth_key))
+        return redirect(url_for("user", usr=input_data))
     else: 
         return render_template("login.html")
 
