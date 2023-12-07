@@ -57,6 +57,7 @@ def login():
 @application.route('/download_excel/<excel_filename>')
 def download_excel(excel_filename):
     excel_filename = str(excel_filename)
+    print("Downloading file", excel_filename)
     return send_file(excel_filename, as_attachment=True)
   
 @application.route("/<usr>")
