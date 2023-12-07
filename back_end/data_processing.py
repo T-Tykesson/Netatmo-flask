@@ -199,7 +199,7 @@ def find_what_data_each_time_step(station_data_list, station_list,
     return data_dict
 
 def format_median_data_view(data_dict, reference_coordinate):
-"""
+    """
     Calculate median value for each time step and create a pandas data frame.
 
     Parameters
@@ -385,7 +385,7 @@ def collect_station_data(input_data, rain_station_list, start_stop_list, gui=Non
                 100 / (len(rain_station_list) + 1))))
 
         try:
-            station_data = get_measure(
+            station_data = rain_data.get_measure(
                 input_data,
                 station,
                 start_stop_list,
