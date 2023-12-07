@@ -15,15 +15,15 @@ import calendar
 
 
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 
-@app.route('/')
+@application.route('/')
 def home():
     #return "Hello, Flask!"
     return redirect(url_for("login"))
 
-@app.route("/login/", methods=["POST", "GET"])
+@application.route("/login/", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         auth_token = request.form["auth"]
@@ -54,18 +54,18 @@ def login():
     else: 
         return render_template("login.html")
 
-@app.route("/<usr>")
+@application.route("/<usr>")
 def user(usr):
     return f"<h1>{usr}</h1>"
 
 
-@app.route('/predictions', methods=['POST'])
+@application.route('/predictions', methods=['POST'])
 def create_prediction():
     data = request.data or '{}'
     body = json.loads(data)
     return jsonify(predict(body))
 
-print(app.url_map)
+print(application.url_map)
 
 if __name__=="__main__":
-    app.run(debug=True)
+    applicatoin.run(debug=True)
