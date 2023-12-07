@@ -62,4 +62,4 @@ def download_excel(excel_filename):
 print(application.url_map)
 
 if __name__=="__main__":
-    applicatoin.run(debug=True)
+    application.run(debug=True)
