@@ -54,7 +54,7 @@ def login():
     else: 
         return render_template("login.html")
 
-@application.route('/download_excel')
+@application.route('/download_excel/<excel_filename>')
 def download_excel(excel_filename):
     excel_filename = str(excel_filename)
     return send_file(excel_filename, as_attachment=True)
