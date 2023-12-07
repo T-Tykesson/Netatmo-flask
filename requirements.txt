@@ -1,5 +1,8 @@
+os
 requests
 Flask
 pandas
 gunicorn
 openpyxl
+tqdm
+datetime
