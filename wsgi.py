@@ -23,7 +23,7 @@ def home():
     return redirect(url_for("getdata"))
 
 @application.route("/getdata/", methods=["POST", "GET"])
-def login():
+def getdata():
     if request.method == "POST":
         auth_token = request.form["auth"]
         start_date = str(request.form.get("start_date"))
