@@ -20,7 +20,6 @@ application = Flask(__name__)
 
 @application.route('/')
 def home():
-    #return "Hello, Flask!"
     return redirect(url_for("getdata"))
 
 @application.route("/getdata/", methods=["POST", "GET"])
