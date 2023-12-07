@@ -476,6 +476,6 @@ def create_data_views_for_excel(input_data, rain_station_list, start_stop_list,
     standard_view_df = format_standard_data_view(data_time_step_dict)
     median_df = format_median_data_view(
         data_time_step_dict, reference_coordinate)
-    map_view_df = format_data_for_map_view(input_data, data_time_step_dict)
+    map_view_df = format_data_map_view(input_data, data_time_step_dict)
 
     return standard_view_df, median_df, map_view_df
