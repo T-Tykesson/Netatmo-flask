@@ -142,7 +142,7 @@ def run_program(input_data, gui=None):
         gui=gui
     )
     print(input_data.path)
-    with pd.ExcelWriter(f"{input_data.path}/{name}.xlsx") as writer:
+    with pd.ExcelWriter(f"{name}.xlsx") as writer:
         df1.to_excel(writer, sheet_name='Allmän vy')
         df2.to_excel(writer, sheet_name="Median", index=False)
         df3.to_excel(writer, sheet_name='Kartfunktion',
