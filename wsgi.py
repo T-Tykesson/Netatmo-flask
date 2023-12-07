@@ -48,12 +48,17 @@ def login():
                 directory
             )
 
-        backend_handler.run_program(input_data)
+        name = backend_handler.run_program(input_data)
 
-        return redirect(url_for("user", usr=input_data))
+        return redirect(url_for("download_excel", excel_filename=name))
     else: 
         return render_template("login.html")
 
+@app.route('/download_excel')
+def download_excel(excel_filename):
+    excel_filename = str(excel_filename)
+    return send_file(excel_filename, as_attachment=True)
+  
 @application.route("/<usr>")
 def user(usr):
     return f"<h1>{usr}</h1>"
