@@ -21,9 +21,9 @@ application = Flask(__name__)
 @application.route('/')
 def home():
     #return "Hello, Flask!"
-    return redirect(url_for("login"))
+    return redirect(url_for("getdata"))
 
-@application.route("/login/", methods=["POST", "GET"])
+@application.route("/getdata/", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         auth_token = request.form["auth"]
@@ -59,17 +59,6 @@ def download_excel(excel_filename):
     excel_filename = str(excel_filename)
     print("Downloading file", excel_filename)
     return send_file(excel_filename, as_attachment=True)
-  
-@application.route("/<usr>")
-def user(usr):
-    return f"<h1>{usr}</h1>"
-
-
-@application.route('/predictions', methods=['POST'])
-def create_prediction():
-    data = request.data or '{}'
-    body = json.loads(data)
-    return jsonify(predict(body))
 
 print(application.url_map)
 
