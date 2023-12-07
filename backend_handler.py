@@ -152,3 +152,5 @@ def run_program(input_data, gui=None):
         gui.event_queue.put(("progress", 100 // (len(rain_station_list) + 1)))
         gui.event_queue.put((
             "message", f"Programmet är klart \n Fil sparad: \n {name}"))
+
+    return name
