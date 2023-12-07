@@ -153,4 +153,6 @@ def run_program(input_data, gui=None):
         gui.event_queue.put((
             "message", f"Programmet är klart \n Fil sparad: \n {name}"))
 
-    return name
+    print(name)
+    print(str(name))
+    return f"{name}.xlsx"
