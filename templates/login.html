@@ -3,31 +3,120 @@
 
 {% block content %}
 
-<form action="#" method="post">
+<form action="#" method="post" onsubmit="updateCoordinates()" class="form-container">
+    
+     <fieldset>
+        <legend>Autentiseringstoken (<a href="https://dev.netatmo.com/apps/" target="_blank">hämtas här</a>) </legend>
+        <label for="auth-field">
+        <input id="auth-field" type="text" name="auth" style="height: 10px;">
+        </label>
+     </fieldset>   
+    
+     <fieldset>
+        <legend>Datum</legend>
 
-    <p>Auth token: <a href="https://dev.netatmo.com/apps/" target="_blank">Hämta token</a></p>
-    <p><input type="text" name="auth"/></p>
-    <fieldset>
-        <legend>Start Date</legend>
-        <label for="my-date-picker">Date:
-            <input id="my-date-picker" type="date" min="2015-12-31"
-            name="start_date" value="">
-        </label>
+        <div style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+                <label for="my-date-picker">Startdatum:
+                <input id="my-date-picker" type="date" min="2015-12-31" name="start_date" value="" style="height: 10px;">
+                </label>
+            </div>
+            <div style="flex: 1;">
+                <label for="my-date-picker">Slutdatum:
+                <input id="my-date-picker" type="date" min="2015-12-31" name="end_date" value="" style="height: 10px;">
+                </label>
+            </div>
+        </div>
     </fieldset>
+ 
+    <div style="width: 100%; height: 400px; margin-top: 20px; margin-bottom: 20px;">
+        <!-- Map Container -->
+        <div id="map" style="width: 100%; height: 100%;"></div>
+    </div>
+    
     <fieldset>
-        <legend>End Date</legend>
-        <label for="my-date-picker">Date:
-            <input id="my-date-picker" type="date" min="2015-12-31"
-            name="end_date" value="">
-        </label>
+        <legend>Koordinater (hämtas från karta) </legend>
+
+        <div style="display: flex; gap: 20px;">
+            <div style="flex: 1;">
+                <label for="latitude">Latitud:</label>
+                <input type="text" id="latitude" name="latitude" style="height: 10px;" readonly>
+            </div>
+            <div style="flex: 1;">
+                <label for="longitude">Longitud:</label>
+                <input type="text" id="longitude" name="longitude" style="height: 10px;" readonly>
+            </div>
+        </div>
     </fieldset>
-    <p>Latitude:</p>
-    <p><input type="float" name="latitude"/></p>
-    <p>Longitude:</p>
-    <p><input type="float" name="longitude"/></p>
-    <p>Amount of stations</p>
-    <p><input type="int" name="amount"/></p>
-    <p><input type="submit" value="submit"/></p>
+    
+    <div style="display: flex; gap: 20px;">
+        <!-- First Fieldset -->
+        <fieldset>
+            <legend>Antal stationer</legend>
+            <label for="amount">
+                <input id="amount" type="number" name="amount" style="height: 10px;">
+            </label>
+        </fieldset>
+        
+        <!-- Second Fieldset -->
+        <fieldset>
+            <legend>Upplösning</legend>
+            <label for="time">
+                <select id="time" name="time" style="width: 120px; height: 40 px;">
+                    <option value="30 min">30 min</option>
+                    <option value="1 timme">1 timme</option>
+                    <option value="3 timmar">3 timmar</option>
+                    <option value="1 dag">1 dag</option>
+                    <option value="1 vecka">1 vecka</option>
+                    <option value="1 månad">1 månad</option>
+                </select>
+            </label>
+        </fieldset>
+    </div>
+
+
+    <p><input type="submit" value="Hämta data"/></p>
 </form>
 
+<!-- JavaScript to initialize the map -->
+<script>
+    var map;
+    var marker;
+
+    function initMap() {
+        map = L.map('map').setView([57.703895, 11.975441], 12); // Default view, adjust as needed
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add a click event listener to update coordinates on map click
+        map.on('click', function (e) {
+            updateCoordinates(e.latlng.lat, e.latlng.lng);
+            
+            // Remove existing marker if any
+            if (marker) {
+                map.removeLayer(marker);
+            }
+
+            // Add a new marker at the clicked coordinates
+            marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+        });
+    }
+
+    function updateCoordinates(latitude, longitude) {
+        // Update latitude and longitude fields
+        document.getElementsByName("latitude")[0].value = latitude.toFixed(6);
+        document.getElementsByName("longitude")[0].value = longitude.toFixed(6);
+
+    }
+
+    // Initialize the map when the page is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        initMap();
+    });
+</script>
+
 {% endblock %}
+
+

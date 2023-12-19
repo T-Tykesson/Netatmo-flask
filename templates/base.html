@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}{% endblock %}</title>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        
+        <!-- Styles CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+        <!-- Leaflet JavaScript -->
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     </head>
     <body>
-        <h1>Netatmo-applikation test</h1>
+        <h1>Hämta regndata från Netatmo</h1>
         {% block content %}
         {% endblock %}
     </body>
