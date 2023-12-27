@@ -1,6 +1,5 @@
 import json
 from flask import Flask, jsonify, render_template, redirect, url_for, request, send_file
-from prediction import predict
 import webbrowser
 import threading
 import os
@@ -12,8 +11,6 @@ from back_end.api_counter import (InternalServerError,
                                   NetatmoGeneralError, NoActiveTokenError,
                                   NoApiCallsLeftError, InvalidInputError)
 import calendar
-
-
 
 application = Flask(__name__)
 
