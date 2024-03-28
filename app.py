@@ -28,7 +28,7 @@ def getdata():
         latitude = float(request.form["latitude"])
         longitude = float(request.form["longitude"])
         amount = int(request.form["amount"])
-        scale = "30 min"
+        scale = str(request.form["time"])
         directory = ""
         print(auth_token, "\n", start_date, "\n"
               , end_date)
